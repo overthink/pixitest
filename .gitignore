@@ -1,0 +1,6 @@
+.idea
+.alm
+node_modules
+dist/
+typings/
+*.iml
