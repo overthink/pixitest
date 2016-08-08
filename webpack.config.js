@@ -11,7 +11,7 @@ module.exports = {
 
     resolve: {
         // Add '.ts' as resolvable extensions.
-        extensions: ["", ".webpack.js", ".web.js", ".ts", ".js"]
+        extensions: ["", ".ts", ".js"]
     },
 
     module: {
@@ -23,9 +23,6 @@ module.exports = {
         loaders: [
             // All files with a '.ts' extension will be handled by 'ts-loader'.
             { test: /\.ts$/, loader: "ts-loader" },
-            // Pixi apparently needs to read its package.json file, so we tell webpack
-            // how to load these.
-            { test: /\.json$/, loader: "json" }
         ],
 
         // Pixi expects people to be using Browserify. We're not, but we still can use
@@ -34,4 +31,11 @@ module.exports = {
           { include: path.resolve(__dirname, "node_modules/pixi.js"), loader: "transform?brfs" }
         ]
     },
+
+    externals: [
+        // Don't bundle pixi.js, assume it'll be included in the HTML via a script
+        // tag, and made available in the global variable PIXI.
+        {"pixi.js": "PIXI"}
+    ]
+
 };
